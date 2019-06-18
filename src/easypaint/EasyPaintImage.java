@@ -16,7 +16,9 @@ import javax.swing.JPanel;
 import easypaint.graphicobject.GraphicObject;
 import easypaint.graphicobject.GraphicObjectException;
 import easypaint.graphicobject.ImageObject;
+import easypaint.graphicobject.LineObject;
 import easypaint.renderer.ImageRenderer;
+import easypaint.renderer.LineRenderer;
 import easypaint.renderer.Renderer;
 
 /**
@@ -46,6 +48,7 @@ public class EasyPaintImage extends JPanel {
         renderList = new ArrayList<>();
         try {
             renderList.add(new ImageRenderer(new ImageObject("C:/users/mxb122/Test/GCDOCS_Screen.png")));
+            renderList.add(new LineRenderer(new LineObject()));
         } catch (GraphicObjectException e) {
             e.printStackTrace();
         }
