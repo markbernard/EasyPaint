@@ -13,9 +13,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 import javax.swing.UIManager;
 
 import easypaint.action.FileAction;
+import easypaint.action.LineAction;
 import easypaint.dialog.NewImageDialog;
 
 /**
@@ -39,6 +41,7 @@ public class EasyPaint extends JPanel implements WindowListener {
         PreferencesUtil.loadPrefs(this);
         setTitle();
         createMenu();
+        add(createToolbar(), BorderLayout.WEST);
         tabbedPane = new JTabbedPane();
         add(tabbedPane, BorderLayout.CENTER);
     }
@@ -51,6 +54,14 @@ public class EasyPaint extends JPanel implements WindowListener {
         bar.add(fileMenu);
         fileMenu.add(new JMenuItem(new FileAction.NewAction(this)));
     }
+    
+    private JToolBar createToolbar() {
+        JToolBar toolbar = new JToolBar(JToolBar.VERTICAL);
+        
+        toolbar.add(new LineAction());
+        
+        return toolbar;
+    }
 
     private void exit() {
         PreferencesUtil.savePrefs(this);
@@ -61,10 +72,10 @@ public class EasyPaint extends JPanel implements WindowListener {
      * 
      */
     public void newImage() {
-        NewImageDialog newImageDialog = new NewImageDialog();
+        NewImageDialog newImageDialog = new NewImageDialog(parentFrame);
         
         if (newImageDialog.showDialog()) {
-            EasyPaintImage easyPaintImage = new EasyPaintImage(800, 600, newImageCounter++);
+            EasyPaintImage easyPaintImage = new EasyPaintImage(newImageDialog.getImageWidth(), newImageDialog.getImageWidth(), newImageCounter++);
             tabbedPane.addTab(easyPaintImage.getName(), easyPaintImage);
         }
     }

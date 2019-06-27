@@ -6,6 +6,9 @@ package easypaint;
 import java.util.prefs.Preferences;
 
 import javax.swing.JFrame;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * @author Mark Bernard
@@ -18,12 +21,56 @@ public class PreferencesUtil {
     private static final String WINDOW_HEIGHT = "window_height";
     private static final String WINDOW_MAXIMIZED = "window_maximized";
     
+    private static final String[] fontResourceNames = {
+            "OptionPane.buttonFont",
+            "List.font",
+            "Panel.font",
+            "TextArea.font",
+            "ToggleButton.font",
+            "ComboBox.font",
+            "ScrollPane.font",
+            "Spinner.font",
+            "Slider.font",
+            "EditorPane.font",
+            "OptionPane.font",
+            "ToolBar.font",
+            "Tree.font",
+            "CheckBoxMenuItem.font",
+            "TitledBorder.font",
+            "FileChooser.listFont",
+            "Table.font",
+            "MenuBar.font",
+            "PopupMenu.font",
+            "Label.font",
+            "MenuItem.font",
+            "MenuItem.acceleratorFont",
+            "TextField.font",
+            "TextPane.font",
+            "CheckBox.font",
+            "ProgressBar.font",
+            "FormattedTextField.font",
+            "CheckBoxMenuItem.acceleratorFont",
+            "Menu.acceleratorFont",
+            "ColorChooser.font",
+            "Menu.font",
+            "PasswordField.font",
+            "InternalFrame.titleFont",
+            "OptionPane.messageFont",
+            "RadioButtonMenuItem.acceleratorFont",
+            "Viewport.font",
+            "TabbedPane.font",
+            "RadioButton.font",
+            "ToolTip.font",
+            "Button.font"
+    };
+
     /**
      * Load application preferences.
      * 
      * @param easyPaint
      */
     public static void loadPrefs(EasyPaint easyPaint) {
+        setFonts();
         Preferences prefs = Preferences.userNodeForPackage(PreferencesUtil.class);
         JFrame frame = easyPaint.getParentFrame();
         
@@ -58,6 +105,15 @@ public class PreferencesUtil {
             prefs.putBoolean(WINDOW_MAXIMIZED, false);
         }
     }
-    
+
+    private static void setFonts() {
+        UIDefaults defaults = UIManager.getDefaults();
+        
+        for (String fontResourceName : fontResourceNames) {
+            FontUIResource fontUIResource = (FontUIResource) defaults.get(fontResourceName);
+            defaults.put(fontResourceName, fontUIResource.deriveFont((fontUIResource.getSize2D() * 150) / 100.0f));
+        }
+    }
+
     private PreferencesUtil() {}
 }
