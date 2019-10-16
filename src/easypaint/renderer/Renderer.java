@@ -12,12 +12,12 @@ import easypaint.graphicobject.GraphicObject;
  * @param <T> 
  */
 public class Renderer<T extends GraphicObject> {
-    private GraphicObject graphicObject;
+    private T graphicObject;
     
     /**
      * @param graphicObject
      */
-    public Renderer(GraphicObject graphicObject) {
+    public Renderer(T graphicObject) {
         this.graphicObject = graphicObject;
         
     }
