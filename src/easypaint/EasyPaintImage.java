@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import easypaint.graphicobject.GraphicObject;
@@ -38,7 +39,7 @@ public class EasyPaintImage extends JPanel {
      * @param newImageCounter 
      */
     public EasyPaintImage(int imageWidth, int imageHeight, int newImageCounter) {
-        setBackground(Color.WHITE);
+        setBackground(Color.LIGHT_GRAY);
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
         name = "new-" + newImageCounter;
@@ -52,7 +53,7 @@ public class EasyPaintImage extends JPanel {
      * @param filePath 
      */
     public EasyPaintImage(int imageWidth, int imageHeight, String filePath) {
-        setBackground(Color.WHITE);
+        setBackground(Color.LIGHT_GRAY);
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
         displayImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_4BYTE_ABGR);
@@ -69,11 +70,14 @@ public class EasyPaintImage extends JPanel {
         super.paintComponent(g);
         
         Graphics2D imageGraphics = displayImage.createGraphics();
+        imageGraphics.setColor(Color.WHITE);
+        imageGraphics.fillRect(0, 0, imageWidth, imageHeight);
+        imageGraphics.setColor(Color.BLACK);
         for (Renderer<? extends GraphicObject> renderer : renderList) {
             renderer.render(imageGraphics);
         }
         
-        g.drawImage(displayImage, 0, 0, this);
+        g.drawImage(displayImage, (getWidth() - imageWidth) / 2, (getHeight() - imageHeight) / 2, this);
     }
     
     @Override

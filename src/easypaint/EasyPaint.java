@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -75,8 +76,9 @@ public class EasyPaint extends JPanel implements WindowListener {
         NewImageDialog newImageDialog = new NewImageDialog(parentFrame);
         
         if (newImageDialog.showDialog()) {
-            EasyPaintImage easyPaintImage = new EasyPaintImage(newImageDialog.getImageWidth(), newImageDialog.getImageWidth(), newImageCounter++);
-            tabbedPane.addTab(easyPaintImage.getName(), easyPaintImage);
+            EasyPaintImage easyPaintImage = new EasyPaintImage(newImageDialog.getImageWidth(), newImageDialog.getImageHeight(), newImageCounter++);
+            JScrollPane scroll = new JScrollPane(easyPaintImage, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            tabbedPane.addTab(easyPaintImage.getName(), scroll);
         }
     }
     
